@@ -8,22 +8,20 @@ export const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action: PayloadAction<CartItem>) => {
             state.push(action.payload);
-            console.log(action.payload);
         },
         removeFromCart: (state, action: PayloadAction<CartItem>) => {
             state = state.filter((item) => item.id !== action.payload.id)
         },
         removeAllItem: (state) => {
             state = []
-            localStorage.setItem('cartState', JSON.stringify(state))
         }
     }
 })
 
+export const cartSelector = (state: RootState) => state
+
 // this is for dispatch
 export const { addToCart, removeFromCart, removeAllItem } = cartSlice.actions;
-
-export const cartSelector = (state: RootState) => state.cartReducer
 
 // this is for configureStore
 export default cartSlice.reducer;

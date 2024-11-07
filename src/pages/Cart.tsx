@@ -10,22 +10,11 @@ function Cart() {
     const dispatch = useAppDispatch();
     const selectedItems = useAppSelector(cartSelector);
     const [cartItems, setCartItems] = useState<Array<CartItem>>([]);
-    const [triggerRerender, setTriggerRerender] = useState<boolean>(true);
+    //const [triggerRerender, setTriggerRerender] = useState<boolean>(true);
     
 
     useEffect(() => {
-        try {
-            const cartState = localStorage.getItem('cartState');
-            if (cartState !== null) {
-                setCartItems(JSON.parse(cartState))
-                JSON.parse(cartState).forEach((item: CartItem) => dispatch(addToCart(item)))
-            }
-        } catch (err) {
-            console.log(err);
-        }
-        return () => {
-            
-        }
+        setCartItems(selectedItems);
     }, []);
 
     const calculateTotalPrice = useMemo(() => {
@@ -33,7 +22,7 @@ function Cart() {
     }, [cartItems])
 
     const removeCartItem = (targetItem: CartItem) => {
-        //dispatch(removeFromCart(item));
+        dispatch(removeFromCart(targetItem));
         const newCart = cartItems.filter((item) => item.id !== targetItem.id);
         setCartItems(newCart);
     }

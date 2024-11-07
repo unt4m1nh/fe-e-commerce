@@ -5,20 +5,12 @@ import { CartItem, NotificationType } from "../../types/type";
 import { useAppDispatch, useAppSelector } from "../../hook/hook";
 import { addToCart, cartSelector } from "../../store/cart/cartSlice";
 import { makeId } from "../../utils/makeId"
-import { useEffect } from "react";
 
 const ImageContainer = () => {
 
     const [api, contextHolder] = notification.useNotification();
     const dispatch = useAppDispatch();
     const selectedItems = useAppSelector(cartSelector);
-
-    useEffect(() => {
-        console.log(selectedItems)
-        return () => {
-            localStorage.setItem('cartState', JSON.stringify(selectedItems))
-        }
-    }, [selectedItems]);
 
     const addItemToCart = () => {
         const newId = makeId(5);
